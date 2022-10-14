@@ -7,14 +7,17 @@
 
 inline void showText(char *script, char *fontFile, int r, int g, int b, int a, int size, int x, int y, SDL_Renderer *renderer)
 {
+    //text color
     SDL_Color textColor;
     textColor.a = a;
     textColor.r = r;
     textColor.g = g;
     textColor.b = b;
 
+    //opening font file
     TTF_Font *font = TTF_OpenFont(fontFile, size);
 
+    //get the width and the height of the text given the pt size of the text
     int wText, hText;
     TTF_SizeText(font, script, &wText, &hText);
     SDL_Rect srcText;

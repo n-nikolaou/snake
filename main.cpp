@@ -44,17 +44,18 @@ int main(int argc, char* args[]) {
 
     if(TTF_Init()) std::cout<<TTF_GetError<<std::endl;
 
+    //create window
     SDL_Window *window = SDL_CreateWindow("Basic Snake Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0); //create renderer
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);//color bg
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);//set color bg to white
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
 
     SDL_Event event;
     bool isRunning = 1, keyboardInput = 1, started = 0, hasStopped = 1;
 
-    std::thread first(blinkingText, renderer, &started); //blinking text
+    std::thread first(blinkingText, renderer, &started); //blinking text functioning with 2nd thread
 
     int direction = 0;
     snake entity;
@@ -82,6 +83,7 @@ int main(int argc, char* args[]) {
                         direction = event.key.keysym.scancode;
                         hasStopped = 0; //flag changes so the movement starts
                     }
+                    //recognize only these movements while the game is running
                     else if (started && (event.key.keysym.scancode == SDL_SCANCODE_W)) direction = event.key.keysym.scancode;
                     else if (started && (event.key.keysym.scancode == SDL_SCANCODE_A)) direction = event.key.keysym.scancode;
                     else if (started && (event.key.keysym.scancode == SDL_SCANCODE_S)) direction = event.key.keysym.scancode;

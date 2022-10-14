@@ -1,5 +1,6 @@
 #include "food.h"
 
+//ready algorithm
 void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius)
 {
     const int32_t diameter = (radius * 2);
@@ -37,7 +38,8 @@ void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32
         }
     }
 }
-#include <iostream>
+
+//checking if the apple has spawned in the position of the snake
 bool food::hasCollided(int x, int y, int length, int **pos)
 {
     for (int i = 0; i < length; i++)
@@ -67,6 +69,7 @@ void food::initialize(SDL_Renderer *renderer, snake *entity) {
     int centerH = SCREEN_HEIGHT/2 - BODY_SIZE/2;
     int centerW = SCREEN_WIDTH/2 - BODY_SIZE/2;
 
+    //counting the slots of the screen given the screen size and the step of the snake
     int tempH = centerH, tempW = centerW;
     int i;
     for (i = 0; tempW > 0; i++)
@@ -92,6 +95,7 @@ void food::initialize(SDL_Renderer *renderer, snake *entity) {
 
 void food::calcCoords(int length, int **pos)
 {
+    //pseudo-randomly calculating the position of the apple
     int randX = (rand() % verSlots) * STEP + farL, randY = (rand() % horSlots) * STEP + farU;
     while (hasCollided(randX, randY, length, pos)) {
         randX += STEP;
@@ -114,6 +118,7 @@ void food::drawFood()
       DrawCircle(renderer, coords[0] + BODY_SIZE/2, coords[1] + BODY_SIZE/2, i);
 }
 
+//returning the far left and the far up edges of the screen
 int* food::getEdges()
 {
     int *table = (int*) malloc(2 * sizeof(int));
